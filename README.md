@@ -55,6 +55,6 @@ Je vous propose une structure de code qui suit les bonnes pratiques de développ
 2. Répondez aux questions des commentaires dans le README
 3. Implémentez progressivement les TODOs
 4. Testez chaque fonctionnalité au fur et à mesure
-5. Documentez vos choix et vos réflexions
+5. Documentez vos choix et vos réflexions en ajoutant des copies d'écrans à votre fichier README.md
 
 #### Bon courage
