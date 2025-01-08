@@ -5,7 +5,7 @@
 
 const dotenv = require('dotenv');
 dotenv.config();
-validateEnv();
+
 
 const requiredEnvVars = [
   'MONGODB_URI',
@@ -13,13 +13,17 @@ const requiredEnvVars = [
   'REDIS_URI'
 ];
 
+// Validation des variables d'environnement
+function validateEnv() {
   requiredEnvVars.forEach((varName) => {
     if (!process.env[varName]) {
       throw new Error(`L'environnement variable ${varName} est manquante.`);
     }
   });
   // Si une variable manque, lever une erreur explicative
-  
+}
+
+validateEnv();
 
 module.exports = {
   mongodb: {
