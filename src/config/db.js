@@ -13,7 +13,7 @@ async function connectMongo() {
     mongoClient = new MongoClient(config.mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
     await mongoClient.connect();
     db = mongoClient.db(config.mongoDbName);
-    console.log('Connecxion à MongoDB reussie');
+    console.log('Connexion à MongoDB reussie');
   } catch (error) {
     console.error('Erreur de la connexion à MongoDB:', error);
     throw error;
