@@ -15,7 +15,7 @@ async function createCourse(req, res) {
     const { title, description, instructor } = req.body;
 
     if (!title || !description || !instructor) {
-      return res.status(400).json({ message: 'Tous les champs sont obligatoires' });
+      return res.status(400).json({ message: 'Tous les champs sont obligatoires: title, description, instructor' });
     }
 
     const newCourse = {
