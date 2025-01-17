@@ -30,7 +30,7 @@ module.exports = {
     uri: process.env.MONGODB_URI,
     dbName: process.env.MONGODB_DB_NAME
   },
-  redis: {
+  redisur: {
     uri: process.env.REDIS_URI
   },
   port: process.env.PORT || 3000

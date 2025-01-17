@@ -3,12 +3,13 @@
 // Question: Quelle est la meilleure façon de gérer le démarrage de l'application ?
 // Réponse: Configurer les middleware, définir les routes, gérer les erreurs et démarrer le serveur sur un port spécifié.
 
-const express = require('express');
-const config = require('./config/env');
-const db = require('./config/db');
+import express from 'express';
+import pkj from './config/env.js';
+const port = pkj.port;
+import { connectRedis, connectMongo} from './config/db.js';
 
-const courseRoutes = require('./routes/courseRoutes');
-const studentRoutes = require('./routes/studentRoutes');
+import courseRoutes from './routes/courseRoutes.js';
+import studentRoutes from './routes/studentRoutes.js';
 
 const app = express();
 
@@ -17,7 +18,7 @@ startServer();
 async function startServer() {
   try {
     // Initialiser les connexions aux bases de données
-    await db.connect();
+    await connectMongo();
 
     // Configurer les middlewares Express
     app.use(express.json());
@@ -28,8 +29,8 @@ async function startServer() {
     app.use('/students', studentRoutes);
 
     // Démarrer le serveur
-    app.listen(config.port, () => {
-      console.log(`Server is running on port ${config.port}`);
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);
@@ -40,7 +41,7 @@ async function startServer() {
 // Gestion propre de l'arrêt
 process.on('SIGTERM', async () => {
   try {
-    await db.disconnect();
+    await disconnect();
     console.log('Database connection closed.');
     process.exit(0);
   } catch (error) {
@@ -49,4 +50,5 @@ process.on('SIGTERM', async () => {
   }
 });
 
-startServer();
+// Connect to Redis inside startServer function
+await connectRedis();

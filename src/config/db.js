@@ -4,15 +4,16 @@
 // Réponse : On utilisant un block finally dans un try catch afin d'assurer de la fermeture de la connexion dans tous les cas
 const { MongoClient } = require('mongodb');
 const redis = require('redis');
-const config = require('./env');
+const pkj = require('./env.js');
+const { mongodb, redisur } = pkj;
 
 let mongoClient, redisClient, db;
 
 async function connectMongo() {
   try {
-    mongoClient = new MongoClient(config.mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoClient = new MongoClient(mongodb.uri, { useNewUrlParser: true, useUnifiedTopology: true });
     await mongoClient.connect();
-    db = mongoClient.db(config.mongoDbName);
+    db = mongoClient.db(mongodb.dbName);
     console.log('Connexion à MongoDB reussie');
   } catch (error) {
     console.error('Erreur de la connexion à MongoDB:', error);
@@ -22,7 +23,7 @@ async function connectMongo() {
 
 async function connectRedis() {
   try {
-    redisClient = redis.createClient({ url: config.redisUri });
+    redisClient = redis.createClient({ url: redisur.uri });
     redisClient.on('error', (err) => console.error('Erreur de client Redis', err));
     await redisClient.connect();
     console.log('Connection à Redis reussie');
@@ -36,7 +37,7 @@ async function connectRedis() {
 module.exports = {
   connectMongo,
   connectRedis,
-  getMongoClient: () => mongoClient,
-  getRedisClient: () => redisClient,
-  getDb: () => db
+  getMongoClient: mongoClient,
+  getRedisClient: redisClient,
+  getDb: db
 };
