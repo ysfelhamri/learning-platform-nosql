@@ -108,11 +108,11 @@ README.md         # Documentation du projet
 ## Projet Réalisé
 
 ### **Création de la Base des Données** 
-![BDD](https://github.com/user-attachments/assets/321dd881-8104-40fc-a3e6-72254460742e | width="400px")
+![BDD](https://github.com/user-attachments/assets/321dd881-8104-40fc-a3e6-72254460742e)
 _Création de la base des données_
 
 ### **Vérification de Redis**
-![REDIS](https://github.com/user-attachments/assets/134a58a0-9265-49cf-91b9-fd6c5b10d52a)
+![REDIS](https://github.com/user-attachments/assets/134a58a0-9265-49cf-91b9-fd6c5b10d52a | width=100)
 _Vérification de Redis_
 
 ### **Test d'API avec Postman**
