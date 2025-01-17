@@ -1,12 +1,15 @@
 // Question: Pourquoi créer des services séparés ?
 // Réponse: Pour assurer un couplage faible dans le cas de changement de l'implémentation ou l'ajout des nouvelles fonctionnalités
 
-const { ObjectId } = require('mongodb');
+import { ObjectId } from 'mongodb';
+import { getDb } from '../config/db.js';
 
-// Fonctions utilitaires pour MongoDB
-async function findOneById(collection, id) {
+
+async function findOneById(collectionName, id) {
   try {
-    const objectId = ObjectId.createFromTime(id);
+    const db = await getDb();
+    const collection = db.collection(collectionName);
+    const objectId = new ObjectId(id);
     const result = await collection.findOne({ _id: objectId });
     return result;
   } catch (error) {
@@ -15,8 +18,10 @@ async function findOneById(collection, id) {
   }
 }
 
-async function insertOne(collection, document) {
+async function insertOne(collectionName, document) {
   try {
+    const db = await  getDb();
+    const collection = db.collection(collectionName);
     const result = await collection.insertOne(document);
     return result;
   } catch (error) {
@@ -25,9 +30,11 @@ async function insertOne(collection, document) {
   }
 }
 
-async function updateOneById(collection, id, update) {
+async function updateOneById(collectionName, id, update) {
   try {
-    const objectId = ObjectId.createFromTime(id);
+    const db = await getDb();
+    const collection = db.collection(collectionName);
+    const objectId = new ObjectId(id);
     const result = await collection.updateOne({ _id: objectId }, { $set: update });
     return result;
   } catch (error) {
@@ -36,18 +43,24 @@ async function updateOneById(collection, id, update) {
   }
 }
 
-async function deleteOneById(collection, id) {
+async function deleteOneById(collectionName, id) {
   try {
-    const objectId = ObjectId.createFromTime(id);
+    const db = await getDb();
+    const collection = db.collection(collectionName);
+    const objectId = new ObjectId(id);
     const result = await collection.deleteOne({ _id: objectId });
     return result;
-  } catch (error) {
+  }catch (error) {
     console.error('Erreur lors de la suppression du document par ID :', error);
     throw error;
   }
 }
 
+
 // Export des services
-module.exports = {
-  findOneById
+export {
+  findOneById,
+  insertOne,
+  updateOneById,
+  deleteOneById,
 };

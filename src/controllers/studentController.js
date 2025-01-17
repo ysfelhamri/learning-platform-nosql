@@ -30,11 +30,7 @@ async function createStudent(req, res) {
   } catch (error) {
     console.error('Erreur lors de la création de l\'étudiant:', error);
     return res.status(500).json({ message: 'Erreur interne du serveur' });
-  } finally {
-    if (db) {
-      db.close();
-    }
-  }
+  } 
 }
 
 async function getStudent(req, res) {
@@ -55,11 +51,7 @@ async function getStudent(req, res) {
   } catch (error) {
     console.error('Erreur lors de la récupération de l\'étudiant:', error);
     return res.status(500).json({ message: 'Erreur interne du serveur' });
-  } finally {
-    if (db) {
-      db.close();
-    }
-  }
+  } 
 }
 
 async function getStudentStats(req, res) {
@@ -99,11 +91,7 @@ async function getStudentStats(req, res) {
   } catch (error) {
     console.error('Erreur lors de la récupération des statistiques de l\'étudiant:', error);
     return res.status(500).json({ message: 'Erreur interne du serveur' });
-  } finally {
-    if (db) {
-      db.close();
-    }
-  }
+  } 
 }
 
 // Export des contrôleurs

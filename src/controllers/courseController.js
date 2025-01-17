@@ -4,9 +4,9 @@
 // Réponse : Pour assuer un couplage faible en cas de changement de l'implémentation ou l'ajout des nouvelles fonctionalités
 
 const { ObjectId } = require('mongodb');
-const db = require('../config/db');
-const mongoService = require('../services/mongoService');
-const redisService = require('../services/redisService');
+const db = require('../config/db.js');
+const mongoService = require('../services/mongoService.js');
+const redisService = require('../services/redisService.js');
 
 async function createCourse(req, res) {
   // TODO: Implémenter la création d'un cours
@@ -37,10 +37,6 @@ async function createCourse(req, res) {
   } catch (error) {
     console.error('Erreur lors de la création du cours:', error);
     return res.status(500).json({ message: 'Erreur interne du serveur' });
-  } finally {
-    if (db) {
-      db.close();
-    }
   }
 }
 async function getCourse(req, res) {
@@ -61,11 +57,7 @@ async function getCourse(req, res) {
   } catch (error) {
     console.error('Erreur lors de la récupération du cours:', error);
     return res.status(500).json({ message: 'Erreur interne du serveur' });
-  } finally {
-    if (db) {
-      db.close();
-    }
-  }
+  } 
 }
 
 async function getCourseStats(req, res) {
@@ -105,11 +97,7 @@ async function getCourseStats(req, res) {
   } catch (error) {
     console.error('Erreur lors de la récupération des statistiques du cours:', error);
     return res.status(500).json({ message: 'Erreur interne du serveur' });
-  } finally {
-    if (db) {
-      db.close();
-    }
-  }
+  } 
 }
 
 // Export des contrôleurs

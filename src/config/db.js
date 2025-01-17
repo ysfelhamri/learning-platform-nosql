@@ -33,11 +33,32 @@ async function connectRedis() {
   }
 }
 
+async function getMongoClient(){
+  if(!mongoClient){
+    await connectMongo();
+  }
+  return mongoClient;
+}
+
+async function getRedisClient(){
+  if(!redisClient){
+    await connectRedis();
+  }
+  return redisClient;
+}
+
+async function getDb(){
+  if(!db){
+    await connectMongo();
+  }
+  return db;
+}
+
 // Export des fonctions et clients
 module.exports = {
   connectMongo,
   connectRedis,
-  getMongoClient: mongoClient,
-  getRedisClient: redisClient,
-  getDb: db
+  getMongoClient,
+  getRedisClient,
+  getDb,
 };
