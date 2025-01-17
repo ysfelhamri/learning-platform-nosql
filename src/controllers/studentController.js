@@ -104,12 +104,21 @@ async function getStudentStats(req, res) {
         },
       },
       {
+        $lookup: {
+          from: 'courses',
+          localField: 'enrollments.courseId',
+          foreignField: '_id',
+          as: 'courses',
+        },
+      },
+      {
         $project: {
           _id: 1,
           name: 1,
           age: 1,
           major: 1,
           enrollmentCount: { $size: '$enrollments' },
+          courses: '$courses.title',
         },
       },
     ]);
@@ -122,7 +131,7 @@ async function getStudentStats(req, res) {
   } catch (error) {
     console.error('Erreur lors de la récupération des statistiques de l\'étudiant:', error);
     return res.status(500).json({ message: 'Erreur interne du serveur' });
-  } 
+  }
 }
 
 // Export des contrôleurs

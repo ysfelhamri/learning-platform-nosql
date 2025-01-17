@@ -79,12 +79,21 @@ async function getCourseStats(req, res) {
         },
       },
       {
+        $lookup: {
+          from: 'students',
+          localField: 'enrollments.studentId',
+          foreignField: '_id',
+          as: 'students',
+        },
+      },
+      {
         $project: {
           _id: 1,
           title: 1,
           description: 1,
           instructor: 1,
           enrollmentCount: { $size: '$enrollments' },
+          studentNames: '$students.name',
         },
       },
     ]);
