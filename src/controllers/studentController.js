@@ -2,7 +2,38 @@ const { ObjectId } = require('mongodb');
 const db = require('../config/db.js');
 const mongoService = require('../services/mongoService.js');
 const redisService = require('../services/redisService.js');
+async function enrollStudent(req, res) {
+  try {
+    const { studentId, courseId } = req.params;
 
+
+    
+    if (!ObjectId.isValid(courseId)) {
+      return res.status(400).json({ message: 'ID de cours invalide' });
+    }
+    if (!ObjectId.isValid(studentId)) {
+      return res.status(400).json({ message: 'ID d\'étudiant invalide' });
+    }
+
+
+    const enrollment = {
+      studentId: new ObjectId(studentId),
+      courseId: new ObjectId(courseId),
+      enrolledAt: new Date(),
+    };
+
+    const result = await mongoService.insertOne('enrollments', enrollment);
+
+    if (result.insertedId) {
+      return res.status(201).json({ message: 'Inscription réussie', enrollmentId: result.insertedId });
+    } else {
+      return res.status(500).json({ message: 'Échec de l\'inscription' });
+    }
+  } catch (error) {
+    console.error('Erreur lors de l\'inscription de l\'étudiant:', error);
+    return res.status(500).json({ message: 'Erreur interne du serveur' });
+  }
+}
 async function createStudent(req, res) {
   try {
     const { name, age, major } = req.body;
@@ -99,4 +130,5 @@ module.exports = {
   createStudent,
   getStudent,
   getStudentStats,
+  enrollStudent,
 };
