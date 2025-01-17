@@ -108,7 +108,7 @@ README.md         # Documentation du projet
 ## Projet Réalisé
 
 ### **Création de la Base des Données** 
-![BDD](https://github.com/user-attachments/assets/321dd881-8104-40fc-a3e6-72254460742e | width=100 | align=left)
+![BDD](https://github.com/user-attachments/assets/321dd881-8104-40fc-a3e6-72254460742e | width="400px")
 _Création de la base des données_
 
 ### **Vérification de Redis**
