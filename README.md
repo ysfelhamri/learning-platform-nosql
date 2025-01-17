@@ -121,6 +121,7 @@ _Vérification de Redis_
 ![CREATION_COURS](https://github.com/user-attachments/assets/0e5246e6-9cce-492e-9d53-55969fa8547f)
 _Création d'un cours_
 ![CREATION_COURS_BDD](https://github.com/user-attachments/assets/1963d72b-a82e-429a-86bd-f74362552fba)
+
 _Le cours créé dans la base des données_
 
 #### **Recherche d'un Cours**
@@ -135,6 +136,7 @@ _Les statistiques d'un cours_
 ![CREATION_ETUDIANT](https://github.com/user-attachments/assets/a9502def-9d0e-49a1-8627-13a6acbca937)
 _Création d'un étudiant_
 ![CREATION_ETUDIANT_BDD](https://github.com/user-attachments/assets/62ef7a4b-cb6a-4286-b112-ee45c046576f)
+
 _L'étudiant créé d'un la base des données
 
 #### **Recherche d'un Etudiant**
@@ -145,6 +147,7 @@ _Recherche d'un étudiant par ID_
 ![INSC_ETUDIANT_COURS](https://github.com/user-attachments/assets/25fac014-fce5-4d18-a1c5-db1b2b6968e9)
 _Inscription d'un étudiant dans un cours_
 ![INSC_BDD](https://github.com/user-attachments/assets/dedd53ce-d24b-49e4-b219-ca797cc13801)
+
 _L'inscription créée dans la base des données_
 
 #### **Statistiques d'un Etudiant**
@@ -154,4 +157,4 @@ _Les statistiques d'un étudiant_
 ---
 ## Réalisé par 
 
-### Youssef EL HAMRI (II-BDCC2)
+Youssef EL HAMRI (II-BDCC2)
