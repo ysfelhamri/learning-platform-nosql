@@ -43,8 +43,78 @@ async function createCourse(req, res) {
     }
   }
 }
+async function getCourse(req, res) {
+  try {
+    const { id } = req.params;
+
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'ID de cours invalide' });
+    }
+
+    const course = await mongoService.findOne('courses', { _id: new ObjectId(id) });
+
+    if (course) {
+      return res.status(200).json(course);
+    } else {
+      return res.status(404).json({ message: 'Cours non trouvé' });
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération du cours:', error);
+    return res.status(500).json({ message: 'Erreur interne du serveur' });
+  } finally {
+    if (db) {
+      db.close();
+    }
+  }
+}
+
+async function getCourseStats(req, res) {
+  try {
+    const { id } = req.params;
+
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'ID de cours invalide' });
+    }
+
+    const stats = await mongoService.aggregate('courses', [
+      { $match: { _id: new ObjectId(id) } },
+      {
+        $lookup: {
+          from: 'enrollments',
+          localField: '_id',
+          foreignField: 'courseId',
+          as: 'enrollments',
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          description: 1,
+          instructor: 1,
+          enrollmentCount: { $size: '$enrollments' },
+        },
+      },
+    ]);
+
+    if (stats.length > 0) {
+      return res.status(200).json(stats[0]);
+    } else {
+      return res.status(404).json({ message: 'Statistiques du cours non trouvées' });
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des statistiques du cours:', error);
+    return res.status(500).json({ message: 'Erreur interne du serveur' });
+  } finally {
+    if (db) {
+      db.close();
+    }
+  }
+}
 
 // Export des contrôleurs
 module.exports = {
   createCourse,
+  getCourse,
+  getCourseStats,
 };
