@@ -28,8 +28,8 @@ async function createCourse(req, res) {
     const result = await mongoService.insertOne('courses', newCourse);
 
     if (result.insertedId) {
-      const courseId = ObjectId.createFromTime(result.insertedId);
-      await redisService.set(`course:${courseId}`, JSON.stringify(newCourse));
+      const courseId = result.insertedId.toString();
+      await redisService.cacheData(`course:${courseId}`, newCourse, 3600); // Cache for 1 hour
       return res.status(201).json({ message: 'Cours créé avec succès', courseId });
     } else {
       return res.status(500).json({ message: 'Échec de la création du cours' });
