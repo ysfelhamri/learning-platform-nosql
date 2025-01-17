@@ -47,7 +47,7 @@ async function getCourse(req, res) {
       return res.status(400).json({ message: 'ID de cours invalide' });
     }
 
-    const course = await mongoService.findOne('courses', { _id: new ObjectId(id) });
+    const course = await mongoService.findOneById('courses', new ObjectId(id));
 
     if (course) {
       return res.status(200).json(course);

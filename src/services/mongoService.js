@@ -55,6 +55,13 @@ async function deleteOneById(collectionName, id) {
     throw error;
   }
 }
+async function aggregate(collection, pipeline) {
+
+  const db = await getDb();
+
+  return db.collection(collection).aggregate(pipeline).toArray();
+
+}
 
 
 // Export des services
@@ -63,4 +70,5 @@ export {
   insertOne,
   updateOneById,
   deleteOneById,
+  aggregate,
 };

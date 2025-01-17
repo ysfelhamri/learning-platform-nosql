@@ -1,14 +1,14 @@
 const { ObjectId } = require('mongodb');
-const db = require('../config/db');
-const mongoService = require('../services/mongoService');
-const redisService = require('../services/redisService');
+const db = require('../config/db.js');
+const mongoService = require('../services/mongoService.js');
+const redisService = require('../services/redisService.js');
 
 async function createStudent(req, res) {
   try {
     const { name, age, major } = req.body;
 
     if (!name || !age || !major) {
-      return res.status(400).json({ message: 'Tous les champs sont obligatoires' });
+      return res.status(400).json({ message: 'Tous les champs sont obligatoires: name, age, major' });
     }
 
     const newStudent = {
@@ -30,7 +30,7 @@ async function createStudent(req, res) {
   } catch (error) {
     console.error('Erreur lors de la création de l\'étudiant:', error);
     return res.status(500).json({ message: 'Erreur interne du serveur' });
-  } 
+  }
 }
 
 async function getStudent(req, res) {
@@ -41,7 +41,7 @@ async function getStudent(req, res) {
       return res.status(400).json({ message: 'ID d\'étudiant invalide' });
     }
 
-    const student = await mongoService.findOne('students', { _id: new ObjectId(id) });
+    const student = await mongoService.findOneById('students', new ObjectId(id));
 
     if (student) {
       return res.status(200).json(student);
